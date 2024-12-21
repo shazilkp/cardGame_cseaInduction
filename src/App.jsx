@@ -152,6 +152,20 @@ function App() {
     }
   }
 
+  function gridClassProvider(gridSize){
+    switch (gridSize) {
+      case 4:
+        return "grid grid-cols-4 grid-rows-4 gap-3 rounded text-white segoe-ui"
+      case 6:
+        return "grid grid-cols-6 grid-rows-6 gap-3 rounded text-white segoe-ui"
+      case 8:
+        return "grid grid-cols-8 grid-rows-8 gap-3 rounded text-white segoe-ui"
+    
+      default:
+        break;
+    }
+  }
+
   function changeGridSize(gridSize){
     setGridSize((gridSize+2) % 9 < 4 ? 4 : (gridSize+2) % 9);
   }
@@ -184,7 +198,7 @@ function App() {
         <span>Best Score: {bestScore}</span>
       </div>
     </div>
-    <div className = {`grid grid-cols-${gridSize} grid-rows-${gridSize} gap-3 rounded text-white segoe-ui`} 
+    <div className = {gridClassProvider(gridSize)}
     
                       style={{width: "min(85vw,85vh)",
                               height: "min(85vw,85vh)",}}>
