@@ -1,0 +1,49 @@
+
+@font-face {
+    font-family: 'Tagesschrift';
+    src: url('./assets/seguiemj.ttf');  }
+.segoe-ui {
+   font-family:'Tagesschrift', 'Georgia', serif ;
+}
+
+h1 {
+    color: hsl(0, 0%, 28%);
+    font-size: 25px!important;
+    font-weight: bold!important;
+    font-family: monospace;
+    letter-spacing: 7px!important;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  
+  h1 {
+    
+    background: linear-gradient(to right, hsl(0, 0%, 30%) 0, hsl(0, 0%, 100%) 10%, hsl(0, 0%, 30%) 20%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s infinite linear;
+    
+  }
+  
+  @keyframes shine {
+    0% {
+      background-position: 0;
+    }
+    60% {
+      background-position: 600px;
+    }
+    100% {
+      background-position: 600px;
+    }
+  }
+
+  
+button {
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #e5e7eb;
+    transform: scale(1.05);
+  }
