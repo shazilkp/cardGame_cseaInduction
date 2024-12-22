@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import Card from "./Card"
 import './App.css'
 import Confetti from "react-confetti";
+import useSound from "use-sound";
 
+import tadaSfx from "./assets/tada.mp3"
 
 function App() {
   const [grid,setGrid] = useState([]);
@@ -20,6 +22,7 @@ function App() {
   const [theme,setTheme] = useState('food');
   const [playing,setPlaying] = useState(false);
 
+  const [playTada] = useSound(tadaSfx);
 
   const foodImg= ["🍏","🍉","🍓","🥥","🫑","🥓","🫐","🍡","🍏","🍉","🍓","🥥","🫑","🥓","🫐","🍡",
                   "🥐","🥨","🥞","🥯","🍞","🍖","🍔","🍟","🍕","🧆","🥐","🥨","🥞","🥯","🍞","🍖","🍔","🍟","🍕","🧆",
@@ -54,6 +57,7 @@ function App() {
     setMatches(0);
     setMoveCount(0);
     setPlaying(false);
+    setTime(0);
     console.log(flagImg);
 
     let cardImgCopy;
@@ -96,6 +100,7 @@ function App() {
     if(foundArray.length == gridSize*gridSize){
       setGameOver(true);
       setPlaying(false);
+      playTada();
       let score = Math.floor(100000 * (1/time) * (1/moveCount))
       console.log(score);
       const currentBestScore = localStorage.getItem(`bestscore_${gridSize}`);
