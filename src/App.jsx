@@ -3,6 +3,7 @@ import Card from "./Card"
 import './App.css'
 import Confetti from "react-confetti";
 
+
 function App() {
   const [grid,setGrid] = useState([]);
   const [cardData,setCardData] = useState([]);
@@ -28,6 +29,11 @@ function App() {
                      "🐭","🐹","🐰","🐻","🐨","🐼","🐔","🐥","🐧","🐸","🐭","🐹","🐰","🐻","🐨","🐼","🐔","🐥","🐧","🐸",
                      "🐢","🐍","🐲","🐳","🐜","🐙","🐚","🐛","🐡","🐠","🐝","🐞","🐦","🐩","🐢","🐍","🐲","🐳","🐜","🐙","🐚","🐛","🐡","🐠","🐝","🐞","🐦","🐩"];
   
+  const flagImg = ["🇦🇨","🇦🇩","🇦🇪","🇦🇫","🇦🇬","🇦🇱","🇦🇲","🇦🇴","🇦🇨","🇦🇩","🇦🇪","🇦🇫","🇦🇬","🇦🇱","🇦🇲","🇦🇴",
+                     "🇦🇶","🇦🇷","🇦🇸","🇦🇹","🇦🇼","🇦🇽","🇦🇿","🇧🇦","🇧🇧","🇧🇩","🇦🇶","🇦🇷","🇦🇸","🇦🇹","🇦🇼","🇦🇽","🇦🇿","🇧🇦","🇧🇧","🇧🇩",
+                     "🇧🇪","🇧🇫","🇧🇬","🇧🇭","🇧🇮","🇧🇯","🇧🇱","🇧🇳","🇧🇴","🇧🇶","🇧🇷","🇧🇸","🇧🇹","🇮🇳","🇧🇪","🇧🇫","🇧🇬","🇧🇭","🇧🇮","🇧🇯","🇧🇱","🇧🇳","🇧🇴","🇧🇶","🇧🇷","🇧🇸","🇧🇹","🇮🇳"];
+
+  const flagEx = "🇧🇯";
 
   
   useEffect(() => {
@@ -47,8 +53,9 @@ function App() {
     setFoundArray([]);
     setMatches(0);
     setMoveCount(0);
+    setPlaying(false);
+    console.log(flagImg);
 
-    var j = 0;
     let cardImgCopy;
     if(theme == 'animal'){
       cardImgCopy = [...animalImg];
@@ -56,8 +63,13 @@ function App() {
     else if(theme == 'food'){
       cardImgCopy = [...foodImg];
     }
+    else if(theme == 'flag'){
+      cardImgCopy = [...flagImg];
+    }
 
+    console.log(cardImgCopy)
 
+    var j = 0;
     // initialize the grid
     for(let i = (gridSize*gridSize) -1 ;i >= 0 ; i--)  {
         j = Math.floor(Math.random() * (i+1));
@@ -150,16 +162,20 @@ function App() {
       setTheme('food');
       setResetGame(true);
     }
+    else if(themeValue == 'flag' && theme != 'flag'){
+      setTheme('flag');
+      setResetGame(true);
+    }
   }
 
   function gridClassProvider(gridSize){
     switch (gridSize) {
       case 4:
-        return "grid grid-cols-4 grid-rows-4 gap-3 rounded text-white segoe-ui"
+        return "grid grid-cols-4 grid-rows-4 gap-3 rounded text-white noto-color-emoji-regular select-none"
       case 6:
-        return "grid grid-cols-6 grid-rows-6 gap-3 rounded text-white segoe-ui"
+        return "grid grid-cols-6 grid-rows-6 gap-3 rounded text-white noto-color-emoji-regular select-none"
       case 8:
-        return "grid grid-cols-8 grid-rows-8 gap-3 rounded text-white segoe-ui"
+        return "grid grid-cols-8 grid-rows-8 gap-3 rounded text-white noto-color-emoji-regular select-none"
     
       default:
         break;
@@ -188,6 +204,7 @@ function App() {
           <select name="theme" className="py-2 px-4 rounded bg-slate-200 font-semibold text-slate-700" onChange={(e) => handleOption(e.target.value)}>
             <option value="food">Food</option>
             <option value="animal">Animals</option>
+            <option value="flag">Flags</option>
           </select>
         </div>
         <span className="font-semibold text-slate-700 rounded py-2 px-4">Time: {Math.floor(time/60)}:{(time % 60).toString().padStart(2, '0')}</span>

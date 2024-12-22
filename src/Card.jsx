@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { useSpring, a } from '@react-spring/web'
+import useSound from "use-sound";
+
+import cardOpenSfx from "./assets/card-open.mp3"
+import cardCloseSfx from "./assets/card-close.mp3"
 
 function Card({ flipCard, index, resetGame,foundArray, children, isClickable,gridSize, sendDataToParent }) {
     const [cardState, setCardState] = useState('closed');
+    const [playCardOpen] = useSound(cardOpenSfx);
+    const [playCardClose] = useSound(cardCloseSfx);
 
     useEffect(() => {
         setCardState('closed');
@@ -15,9 +21,13 @@ function Card({ flipCard, index, resetGame,foundArray, children, isClickable,gri
     })
 
 
+    
+
     function revealCard() {
+        
         if (cardState === 'closed' && isClickable) {
             setCardState('open');
+            playCardOpen();
             sendDataToParent({
                 index: index,
                 img: children,
@@ -42,6 +52,7 @@ function Card({ flipCard, index, resetGame,foundArray, children, isClickable,gri
         if (flipCard && cardState === 'open') {
             setTimeout(() => {
                 setCardState('closed');
+                playCardClose();
             }, 1000);
         }
     }, [flipCard, cardState]);
